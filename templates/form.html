@@ -9,120 +9,19 @@
     <form id="dishForm">
         <label for="dish_name">Dish Name:</label>
         <input type="text" id="dish_name" name="dish_name" required><br>
-        
-        
             <label>Ingredients:</label>
             <!-- Initial ingredient and quantity inputs -->
             <div id="ingredients-container">
             <div class="ingredient-group">
-                <input type="text" name="ingredient[]" placeholder="Ingredient" required>
-                <input type="text" name="quantity[]" placeholder="Quantity" required>
+                <input type="text" placeholder="Ingredient" required>
+                <input type="text" placeholder="Quantity" required>
             </div>
         </div>
         <button type="button" id="addIngredientBtn">Add Another Ingredient</button><br><br>
 
         <button id="add-ingredient" type="button">Submit</button>
     </form>
-    <script>
-              // Reference the ingredients container and the add button
-              const ingredientsContainer = document.getElementById('ingredients-container');
-        const addIngredientBtn = document.getElementById('addIngredientBtn');
-
-        // Add a new ingredient and quantity input group
-        addIngredientBtn.addEventListener('click', () => {
-            const newGroup = document.createElement('div');
-            newGroup.classList.add('ingredient-group');
-
-            const ingredientInput = document.createElement('input');
-            ingredientInput.type = 'text';
-            ingredientInput.name = 'ingredient[]';
-            ingredientInput.placeholder = 'Ingredient';
-            ingredientInput.required = true;
-
-            const quantityInput = document.createElement('input');
-            quantityInput.type = 'text';
-            quantityInput.name = 'quantity[]';
-            quantityInput.placeholder = 'Quantity';
-            quantityInput.required = true;
-
-            newGroup.appendChild(ingredientInput);
-            newGroup.appendChild(quantityInput);
-            ingredientsContainer.appendChild(newGroup);
-        });
-
-        // Handle form submission
-        document.getElementById('add-ingredient').addEventListener('click', async function (event) {
-            event.preventDefault();
-            let dishName = document.getElementById('dish_name')
-            console.log(dishName.value)
-            if (dishName.value.length < 1) {
-                throw error
-            }
-            let ingredientList = []
-            let ingredientsDiv = document.getElementById('ingredients-container');
-            let items = ingredientsDiv.children
-            for (let i = 0; i < items.length; i++) {
-                ingredientList.push({
-                    Ingredient: items[i].children[0].value,
-                    Quantity: items[i].children[1].value
-                })
-                console.log(items[i].children[0].value, items[i].children[1].value);
-            }
-
-            let result = {
-                dish: dishName.value,
-                ingredients: ingredientList
-            }
-
-            console.log(result)
-            
-
-            const response = await fetch('http://127.0.0.1:5000/add-dish', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(result),
-                });
-
-                window.location = 'http://127.0.0.1:5000/dishes';
-
-            // Collect all the form data
-            /*const formData = {
-                dish_name: document.getElementById('dish_name').value,
-                ingredients: [],
-            };
-
-            // Collect ingredients and quantities
-            const ingredientInputs = document.getElementsByName('ingredient[]');
-            const quantityInputs = document.getElementsByName('quantity[]');
-            for (let i = 0; i < ingredientInputs.length; i++) {
-                formData.ingredients.push({
-                    ingredient: ingredientInputs[i].value,
-                    quantity: quantityInputs[i].value,
-                });
-            }
-
-            try {
-                // Send the data as a JSON object
-                const response = await fetch('/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-                // Handle the response
-                const result = await response.json();
-                console.log('Server response:', result);
-                alert(`Server response: ${result.message}`);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('There was an error submitting the form.');
-            }*/
-        });
-    </script>
+    <script type="module" src="../static/Form.js"></script>
 </body>
 </html>
 
