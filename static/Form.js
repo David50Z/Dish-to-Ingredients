@@ -4,7 +4,6 @@
 import { AddForm } from "./AddForm.js";
 import { AddIngredient } from "./AddIngredient.js";
  console.log("s")
- const ingredientsContainer = document.getElementById('ingredients-container');
  const addIngredientBtn = document.getElementById('addIngredientBtn');
      
  // Add a new ingredient and quantity input group
