@@ -10,7 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dishes.sqlite3'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
 
-#db = SQLAlchemy(app)
+
 db.init_app(app)
 
 dishes = []
@@ -37,7 +37,6 @@ def get_dishes():
 @app.route("/")
 def form():
     result = []
-    #print(Dish.query.all())
     every_dish = Dish.query.all()
     i = 0
     for dish in every_dish:
@@ -48,15 +47,11 @@ def form():
         result.append(current_dish)
         i = i + 1 
         if dish.id == 2:
-            #dish.ingredients[0]['ingredient'] = "Booty"
             
             with app.app_context():
                 db.session.commit()
-        #print(dish)
     print(result)
     
-    #for Dish in every_dish:
-        #print(every_dish)
     return render_template('form.html')
 
 
@@ -64,8 +59,8 @@ def home():
     return "Home"
 
 if (__name__) == "__main__":
-    with app.app_context():  # Push the application context
-        db.create_all()  # Create all database tables
+    with app.app_context():  
+        db.create_all()  
 
         
     app.run(debug=True)
